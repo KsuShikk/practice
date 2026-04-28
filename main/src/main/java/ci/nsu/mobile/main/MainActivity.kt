@@ -12,36 +12,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import ci.nsu.mobile.main.ui.theme.PracticeTheme
+import ci.nsu.mobile.main.data.DepositDatabase
+import ci.nsu.mobile.main.data.DepositRepository
+import ci.nsu.mobile.main.ui.navigation.AppNavigation
+import ci.nsu.mobile.main.viewmodel.DepositViewModel
+import androidx.compose.material3.MaterialTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
+        val db = DepositDatabase.getDatabase(applicationContext)
+        val repository = DepositRepository(db.depositDao())
+        val viewModel = DepositViewModel(repository)
+
         setContent {
-            PracticeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            MaterialTheme {
+                AppNavigation(viewModel)
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PracticeTheme {
-        Greeting("Android")
-    }
-}

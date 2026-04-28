@@ -55,4 +55,18 @@ class DepositViewModel(private val repository: DepositRepository) : ViewModel() 
         initialAmount = ""; months = ""; rate = 0.0; monthlyTopUp = "0"
         finalAmount = 0.0; interestEarned = 0.0
     }
+
+    fun updateMonthlyTopUp(input: String) {
+        // Если в поле был "0" и вводится цифра, заменяем 0 на эту цифру
+        val cleanedInput = if (monthlyTopUp == "0" && input.length > 1 && input.all { it.isDigit() }) {
+            input.removePrefix("0")
+        } else {
+            input
+        }
+
+        // Разрешаем только цифры (или пустую строку)
+        if (cleanedInput.isEmpty() || cleanedInput.all { it.isDigit() }) {
+            monthlyTopUp = cleanedInput
+        }
+    }
 }

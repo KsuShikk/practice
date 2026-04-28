@@ -27,7 +27,7 @@ fun Step2Screen(navController: NavController, viewModel: DepositViewModel) {
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = viewModel.monthlyTopUp,
-            onValueChange = { viewModel.monthlyTopUp = it },
+            onValueChange = { viewModel.updateMonthlyTopUp(it) },
             label = { Text("Пополнение (₽/мес)") },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
