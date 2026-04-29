@@ -29,11 +29,11 @@ class DepositViewModel(private val repository: DepositRepository) : ViewModel() 
         val r = rate / 100 / 12
         val m = monthlyTopUp.toDoubleOrNull() ?: 0.0
 
-        val amount = p * (1 + r).pow(n.toDouble()) +
-                if (r > 0) m * (((1 + r).pow(n.toDouble()) - 1) / r) else m * n
+        val amount = p * (1 + r).pow(n.toDouble()) +  /*расчет роста начального взноса*/
+                if (r > 0) m * (((1 + r).pow(n.toDouble()) - 1) / r) else m * n /*расчет роста ежемесячных пополнений*/
 
         finalAmount = amount
-        interestEarned = amount - p - (m * n)
+        interestEarned = amount - p - (m * n) /*чистая прибыль*/
     }
 
     fun saveToDb() {
@@ -67,6 +67,20 @@ class DepositViewModel(private val repository: DepositRepository) : ViewModel() 
         // Разрешаем только цифры (или пустую строку)
         if (cleanedInput.isEmpty() || cleanedInput.all { it.isDigit() }) {
             monthlyTopUp = cleanedInput
+        }
+    }
+
+    fun updateInitialAmount(input: String) {
+        // Разрешаем цифры и один разделитель (точку или запятую)
+        if (input.isEmpty() || input.matches(Regex("""^\d*[.,]?\d*$"""))) {
+            initialAmount = input
+        }
+    }
+
+    fun updateMonths(input: String) {
+        // Только цифры
+        if (input.isEmpty() || input.all { it.isDigit() }) {
+            months = input
         }
     }
 }

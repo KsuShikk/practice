@@ -17,7 +17,7 @@ fun Step1Screen(navController: NavController, viewModel: DepositViewModel) {
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = viewModel.initialAmount,
-            onValueChange = { viewModel.initialAmount = it },
+            onValueChange = { viewModel.updateInitialAmount(it) },
             label = { Text("Стартовый взнос (₽)") },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
@@ -25,7 +25,7 @@ fun Step1Screen(navController: NavController, viewModel: DepositViewModel) {
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = viewModel.months,
-            onValueChange = { viewModel.months = it },
+            onValueChange = { viewModel.updateMonths(it) },
             label = { Text("Срок (месяцев)") },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)

@@ -38,7 +38,7 @@ fun HistoryScreen(navController: NavController, viewModel: DepositViewModel) {
             items(history.value) { item ->
                 Card(modifier = Modifier.padding(8.dp).fillMaxWidth()) {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        Text("Сумма: ${item.initialAmount} ₽ -> ${String.format("%.2f", item.finalAmount)} ₽")
+                        Text("Сумма: ${formatCurrency(item.initialAmount)} ₽ -> ${formatCurrency(item.finalAmount)} ₽")
                         Text("Срок: ${item.months} мес.", style = MaterialTheme.typography.bodySmall)
                     }
                 }
