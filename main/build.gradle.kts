@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     alias(libs.plugins.kotlin.compose)
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 android {
@@ -56,4 +57,17 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // --- Сеть (Retrofit + OkHttp) ---
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    // --- Сериализация (Kotlin Serialization) ---
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    // Важно: адаптер для связи Retrofit и Kotlin Serialization
+    implementation("com.jakewharton.retrofit2:converter-kotlinx-serialization:2.9.0")
+
+    // --- Архитектура (ViewModel для Compose) ---
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 }
