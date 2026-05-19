@@ -66,7 +66,7 @@ dependencies {
     // --- Сериализация (Kotlin Serialization) ---
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     // Важно: адаптер для связи Retrofit и Kotlin Serialization
-    implementation("com.jakewharton.retrofit2:converter-kotlinx-serialization:2.9.0")
+    implementation("com.squareup.retrofit2:converter-kotlinx-serialization:2.11.0")
 
     // --- Архитектура (ViewModel для Compose) ---
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
