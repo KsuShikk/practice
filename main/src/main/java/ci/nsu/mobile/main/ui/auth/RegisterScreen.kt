@@ -36,7 +36,24 @@ fun RegisterScreen(viewModel: RegisterViewModel, onBack: () -> Unit, onSuccess: 
         OutlinedTextField(firstName, { firstName = it }, label = { Text("Имя") }, modifier = Modifier.fillMaxWidth())
         OutlinedTextField(lastName, { lastName = it }, label = { Text("Фамилия") }, modifier = Modifier.fillMaxWidth())
         OutlinedTextField(patronymic, { patronymic = it }, label = { Text("Отчество") }, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(dateOfBirth, { dateOfBirth = it }, label = { Text("Дата рождения (ГГГГ-ММ-ДД)") }, modifier = Modifier.fillMaxWidth())
+        // Поле для даты рождения с маской ввода
+        OutlinedTextField(
+            value = dateOfBirth,
+            onValueChange = { newValue ->
+                // Маска для формата ГГГГ-ММ-ДД
+                val digits = newValue.filter { it.isDigit() }
+                val formatted = when (digits.length) {
+                    0 -> ""
+                    in 1..4 -> digits
+                    in 5..6 -> "${digits.substring(0,4)}-${digits.substring(4)}"
+                    else -> "${digits.substring(0,4)}-${digits.substring(4,6)}-${digits.substring(6,8)}"
+                }
+                dateOfBirth = formatted.take(10)
+            },
+            label = { Text("Дата рождения (ГГГГ-ММ-ДД)") },
+            placeholder = { Text("ГГГГ-ММ-ДД") },
+            modifier = Modifier.fillMaxWidth()
+        )
         OutlinedTextField(gender, { gender = it }, label = { Text("Пол") }, modifier = Modifier.fillMaxWidth())
         OutlinedTextField(email, { email = it }, label = { Text("Email") }, modifier = Modifier.fillMaxWidth())
         OutlinedTextField(phoneNumber, { phoneNumber = it }, label = { Text("Телефон") }, modifier = Modifier.fillMaxWidth())
