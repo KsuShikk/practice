@@ -46,7 +46,7 @@ fun RegisterScreen(viewModel: RegisterViewModel, onBack: () -> Unit, onSuccess: 
                     0 -> ""
                     in 1..4 -> digits
                     in 5..6 -> "${digits.substring(0,4)}-${digits.substring(4)}"
-                    else -> "${digits.substring(0,4)}-${digits.substring(4,6)}-${digits.substring(6,8)}"
+                    else -> "${digits.substring(0,4)}-${digits.substring(4,6)}-${digits.substring(6)}"
                 }
                 dateOfBirth = formatted.take(10)
             },
